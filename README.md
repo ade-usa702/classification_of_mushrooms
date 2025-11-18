@@ -16,6 +16,15 @@
 ## Установка
 
 Чтобы запустить проект, выполните следующие команды в командной строке:
+
+Клонируем репозиторий (желательно при помощи SSH-ключа) и переходим в него:
+```sh
+git clone git@github.com:ade-usa702/classification_of_mushrooms.git
+```
+```sh
+cd classification_of_mushrooms
+```
+
 * На macOS и Linux - ```python3```:
 Создаем виртуальное окружение:
 ```sh
