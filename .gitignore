@@ -1,0 +1,9 @@
+.flake8
+.vscode/
+venv/
+train.csv
+.ipynb_checkpoints/
+mushrooms_model.pkl
+file.log
+research/
+__pycache__/

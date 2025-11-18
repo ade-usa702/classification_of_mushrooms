@@ -1,0 +1,67 @@
+test_data = [{
+    "cap_shape": "Нисходящая",
+    "cap_surface": "Шелковистая",
+    "cap_color": "Белый",
+    "does_bruise_or_bleed": "Есть",
+    "gill_attachment": "Прижатая",
+    "gill_color": "Белый",
+    "stem_color": "Белый",
+    "has_ring": "Нет",
+    "ring_type": "Раскрывающийся вверх",
+    "habitat": "🌲Лес",
+    "season": "🍂Осень",
+    "cap_diameter": 5.5,
+    "stem_height": 7.2,
+    "stem_width": 1.1
+}, {
+    "cap_shape": "Коническая",
+    "cap_surface": "Шелковистая",
+    "cap_color": "Коричневый",
+    "does_bruise_or_bleed": "Нет",
+    "gill_attachment": "Прижатая",
+    "gill_color": "Белый",
+    "stem_color": "Желтый",
+    "has_ring": "Нет",
+    "ring_type": "Раскрывающийся вверх",
+    "habitat": "🌲Лес",
+    "season": "❄️Зима",
+    "cap_diameter": 2.1,
+    "stem_height": 5.2,
+    "stem_width": 3.7
+}, {
+    "cap_shape": "Коническая",
+    "cap_surface": "Чешуйчатая",
+    "cap_color": "Серый",
+    "does_bruise_or_bleed": "Нет",
+    "gill_attachment": "Нисходящая",
+    "gill_color": "Коричневый",
+    "stem_color": "Белый",
+    "has_ring": "Нет",
+    "ring_type": "Другой",
+    "habitat": "🌱 Трава",
+    "season": "🍂Осень",
+    "cap_diameter": 5.5,
+    "stem_height": 7.2,
+    "stem_width": 1.1
+}, {
+    "cap_shape": "Нисходящая",
+    "cap_surface": "Чешуйчатая",
+    "cap_color": "Розовый",
+    "does_bruise_or_bleed": "Нет",
+    "gill_attachment": "Прижатая",
+    "gill_color": "Оранжевый",
+    "stem_color": "Белый",
+    "has_ring": "Есть",
+    "ring_type": "Раскрывающийся вверх",
+    "habitat": "🏕️ Другое",
+    "season": "☀️Лето",
+    "cap_diameter": 12.5,
+    "stem_height": 14.8,
+    "stem_width": 5.3
+},]
+
+
+incomplete_data = {
+    "cap_shape": "Нисходящая"
+    # остальное поле отсутствует
+}
