@@ -2,12 +2,14 @@ import os
 import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
+from sklearn.metrics import f1_score, make_scorer
+from sklearn.model_selection import GridSearchCV, KFold, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
 import joblib
 from datetime import datetime
 from ml.prepared_data import prepared_data
+from ml.param_grid import param_grid
 from utils.logger import log as logger
 
 
@@ -22,6 +24,7 @@ class MushroomsModel:
         self.df = pd.read_csv(filename)
         self.scaler = MinMaxScaler()
         self.model = RandomForestClassifier(random_state=42, n_estimators=150, min_samples_split=10)
+        self.kfold = KFold(n_splits=5, shuffle=True, random_state=42)
         self.pipeline = None
     
     def preprocess_data(self):
@@ -31,6 +34,9 @@ class MushroomsModel:
             # делим датасет на целевую переменную(target) и независимые переменные(признаки)
             X = df.drop('class', axis=1)
             y = df['class']
+            # отделяем выборку на тренировочную и тестовую
+            X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, test_size=0.25)
+            best_model = self.validation_model(X_train, y_train)
             cat = [i for i in X.select_dtypes(include='object').columns]
             numeric_transformer = Pipeline(steps=[
                 ('scaler', self.scaler)
@@ -45,14 +51,35 @@ class MushroomsModel:
                     ])
             pipeline = Pipeline(steps=[
                 ('preprocessor', preprocessor),
-                ('classifier', self.model)
+                ('classifier', best_model)
                 ])
-            # отделяем выборку на тренировочную и тестовую
-            X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42, test_size=0.25)
+            
             pipeline.fit(X_train, y_train)
             self.pipeline = pipeline
         except Exception as e:
             logger.error(f"❌Возникла ошибка при препроцессинге: {e}")
+
+    def validation_model(self, X_train: pd.DataFrame, y_train: pd.DataFrame) -> GridSearchCV:
+        """Валидация и подбор гиперпараметров
+
+        Args:
+            X_train (pd.DataFrame): датафрейм независимых переменных.
+            y_train (pd.DataFrame): датафрейм с целевой переменной.
+
+        Returns:
+            GridSearchCV: модель с лучшими найденными параметрами.
+        """       
+        f1_scorer = make_scorer(f1_score, average='binary')
+        grid_search = GridSearchCV(
+            self.model,
+            param_grid,
+            cv=5,
+            scoring=f1_scorer,
+            n_jobs=-1
+        )
+        grid_search.fit(X_train, y_train)
+        logger.info(f"Выбраны гиперпараметры:{grid_search.best_params}")
+        return grid_search.best_estimator_
 
     def fit_model(self):
         """Обучение и сохранение модели"""        
