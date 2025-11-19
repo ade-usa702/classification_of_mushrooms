@@ -1,5 +1,6 @@
 import requests
 import os
+from server.utils.logger import log
 
 url = "http://localhost:8000/fit/"
 
@@ -9,5 +10,5 @@ with open(filename, "rb") as f:
     files = {"filename": f}
     response = requests.post(url, files=files)
 
-print(response.status_code)
-print(response.json())
+log.info(f"Status code: {response.status_code}")
+log.info(f"Response: {response.json()}")

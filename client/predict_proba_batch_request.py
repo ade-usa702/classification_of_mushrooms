@@ -1,7 +1,7 @@
 import requests
 from data import data
 from urllib.parse import urlencode
-
+from server.utils.logger import log
 
 base_url = "http://localhost:8000/predict/predict_proba_batch?"
 
@@ -15,8 +15,8 @@ for row in data:
 query_string = urlencode(params)
 url = base_url + query_string
 
-print("GET URL:", url)
+log.info(f"GET url: {url}")
 
 # Отправка GET-запроса
 response = requests.get(url)
-print(response.json())
+log.info(f"Response: {response.json()}")

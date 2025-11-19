@@ -1,5 +1,6 @@
 import requests
 from data import data
+from server.utils.logger import log
 
 url = "http://localhost:8000/predict/"
 
@@ -7,7 +8,7 @@ url = "http://localhost:8000/predict/"
 predictions = []
 for row in data:
     resp = requests.get(url, params=row)
-    print(resp.json(), ", code:", resp.status_code)
+    log.info(f"Request: {resp.json()}, code: {resp.status_code}")
     if resp.status_code == 200:
         predictions.append(resp.json())
     else:
@@ -18,4 +19,4 @@ results = data.copy()
 for i in range(len(results)):
     results[i]["poisonous"] = predictions[i].get("poisonous")
 
-print(results)
+log.info(f"Results: {results}")

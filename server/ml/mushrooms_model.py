@@ -8,9 +8,7 @@ from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
 import joblib
 from datetime import datetime
 from ml.prepared_data import prepared_data
-from utils.logger import create_logger
-
-logger = create_logger()
+from utils.logger import log as logger
 
 
 class MushroomsModel:
