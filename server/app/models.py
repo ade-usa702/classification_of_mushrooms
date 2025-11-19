@@ -40,9 +40,9 @@ class MushroomModel(BaseModel):
     ring_type: RingType = Field(description="Тип колец")
     habitat: Habitat = Field(description="Среда обитания")
     season: Season = Field(description="Сезон")
-    cap_diameter: float = Field(description="Диаметр шляпки")
-    stem_height: float = Field(description="Длина ножки")
-    stem_width: float = Field(description="Ширина ножки")
+    cap_diameter: float = Field(description="Диаметр шляпки", ge=0, le=58.4)
+    stem_height: float = Field(description="Длина ножки", ge=0, le=27.3)
+    stem_width: float = Field(description="Ширина ножки", ge=0, le=66.3)
 
 
 class MushroomsBatch(BaseModel):
